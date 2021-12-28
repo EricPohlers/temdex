@@ -1,83 +1,110 @@
 import React, { Component } from 'react';
+import Types from './Types';
 
 export default class TemtemCard extends Component {
-  backgroundColorType(type) {
-    switch (type) {
-      case 'Digital':
-        return 'neutral-600';
-      case 'Melee':
-        return 'amber-600';
-      case 'Toxic':
-        return 'gray-900';
-      case 'Fire':
-        return 'red-600';
-      case 'Nature':
-        return 'green-600';
-      case 'Water':
-        return 'cyan-600';
-      case 'Electric':
-        return 'yellow-300 ';
-      case 'Mental':
-        return 'purple-600';
-      case 'Earth':
-        return 'yellow-900';
-      case 'Wind':
-        return 'emerald-400';
-      case 'Neutral':
-        return 'gray-300';
-      case 'Crystal':
-        return 'rose-500';
-      default:
-        return 'white';
-    }
+  constructor(props) {
+    super(props);
+    this.state = { bgColor: [], typesColor: [] };
   }
-  backgroundColorGradientTypes([type1, type2]) {
-    const color1 = this.firstBackgroundColorType(type1);
-    const color2 = this.firstBackgroundColorType(type2);
-    return 'from-' + color1 + ' to-' + color2;
+
+  componentDidMount() {
+    const color = this.getBackgroundColors(this.props.data.types);
+    const typesColor = this.getTypesColors(this.props.data.types);
+    this.setState({ bgColor: color, typesColor: typesColor });
+  }
+
+  getBackgroundColors(types) {
+    if (types.length > 1) {
+      return [
+        this.firstBackgroundColorType(types[0]),
+        this.firstBackgroundColorType(types[1]),
+      ];
+    }
+    return [this.firstBackgroundColorType(types[0])];
+  }
+  getTypesColors(types) {
+    if (types.length > 1) {
+      return [
+        this.backgroundColorType(types[0]),
+        this.backgroundColorType(types[1]),
+      ];
+    }
+    return [this.backgroundColorType(types[0])];
   }
 
   firstBackgroundColorType(type) {
     switch (type) {
       case 'Digital':
-        return 'neutral-300';
+        return '#D4D4D8';
       case 'Melee':
-        return 'amber-300';
+        return '#FDBA74';
       case 'Toxic':
-        return 'gray-500';
+        return '#6B7280';
       case 'Fire':
-        return 'red-300';
+        return '#F87171';
       case 'Nature':
-        return 'green-300';
+        return '#BEF264';
       case 'Water':
-        return 'cyan-300';
+        return '#7DD3FC';
       case 'Electric':
-        return 'yellow-300 ';
+        return '#FDE047';
       case 'Mental':
-        return 'purple-300';
+        return '#F0ABFC';
       case 'Earth':
-        return 'yellow-600';
+        return '#CA8A04';
       case 'Wind':
-        return 'emerald-200';
+        return '#86EFAC';
       case 'Neutral':
-        return 'gray-100';
+        return '#F4F4F5';
       case 'Crystal':
-        return 'rose-300';
+        return '#FDA4AF';
       default:
-        return 'white';
+        return '#FAFAFA';
+    }
+  }
+  backgroundColorType(type) {
+    switch (type) {
+      case 'Digital':
+        return '#475569';
+      case 'Melee':
+        return '#EA580C';
+      case 'Toxic':
+        return '#292524';
+      case 'Fire':
+        return '#DC2626';
+      case 'Nature':
+        return '#65A30D';
+      case 'Water':
+        return '#2563EB';
+      case 'Electric':
+        return '#FACC15';
+      case 'Mental':
+        return '#C026D3';
+      case 'Earth':
+        return '#854D0E';
+      case 'Wind':
+        return '#2DD4BF';
+      case 'Neutral':
+        return '#A1A1AA';
+      case 'Crystal':
+        return '#EC4899';
+      default:
+        return '#F8FAFC';
     }
   }
   render() {
-    const color =
-      this.props.data.types.length < 2
-        ? 'bg-' + this.firstBackgroundColorType(this.props.data.types[0])
-        : 'bg-gradient-to-r ' +
-          this.backgroundColorGradientTypes(this.props.data.types);
     return (
       <React.StrictMode>
         <div>
           <div
-            className={`border border-gray-200 rounded-lg max-w-sm ${color}`}
+            style={
+              this.state.bgColor.length > 1
+                ? {
+                    backgroundImage: `linear-gradient(to right ,${this.state.bgColor[0]}, ${this.state.bgColor[1]})`,
+                  }
+                : { backgroundColor: this.state.bgColor[0] }
+            }
+            className={`m-2 border border-gray-200 rounded-lg`}
             key={this.props.data.number}
           >
             <img
@@ -94,19 +121,14 @@ export default class TemtemCard extends Component {
                   : 'https://temtem-api.mael.tech//images/portraits/temtem/large/Tuwai.png'
               }
             />
-            <div>
+            <div className="bg-white opacity-60">
               <div className="w-full text-center">{this.props.data.name}</div>
               <div>
                 <div className="m-2">
-                  <span className="mr-2">Types:</span>
-                  {this.props.data.types.map((type, index) => {
-                    const bg = 'bg-' + this.backgroundColorType(type);
-                    return (
-                      <span className={`${bg} rounded-lg px-4`} key={index}>
-                        {type}
-                      </span>
-                    );
-                  })}
+                  <Types
+                    data={this.props.data.types}
+                    bg={this.state.typesColor}
+                  />
                 </div>
               </div>
             </div>
