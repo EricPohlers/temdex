@@ -39,11 +39,18 @@ export default class App extends Component {
     return (
       <div>
         <React.StrictMode>
+          <div className="text-white w-full bg-amber-500 p-4 text-3xl">
+            TemDex
+          </div>
           <SearchBar
             value={this.state.searchTerm}
             handleChange={this.handleChange}
           />
-          <TemtemList data={filteredTemTem} />
+          {this.state.temtemList.length > 0 ? (
+            <TemtemList data={filteredTemTem} />
+          ) : (
+            <div>Loading...</div>
+          )}
         </React.StrictMode>
       </div>
     );
