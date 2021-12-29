@@ -4,13 +4,20 @@ import Types from './Types';
 export default class TemtemCard extends Component {
   constructor(props) {
     super(props);
-    this.state = { bgColor: [], typesColor: [] };
+    this.state = { bgColor: [], typesColor: [], weaknessesColors: [] };
+    this.weaknesses = [];
   }
 
   componentDidMount() {
     const color = this.getBackgroundColors(this.props.data.types);
     const typesColor = this.getTypesColors(this.props.data.types);
-    this.setState({ bgColor: color, typesColor: typesColor });
+    this.weaknesses = this.getWeaknesses();
+    const weaknessesColor = this.getTypesColors(this.weaknesses);
+    this.setState({
+      bgColor: color,
+      typesColor: typesColor,
+      weaknessesColors: weaknessesColor,
+    });
   }
 
   getBackgroundColors(types) {
@@ -23,13 +30,12 @@ export default class TemtemCard extends Component {
     return [this.firstBackgroundColorType(types[0])];
   }
   getTypesColors(types) {
-    if (types.length > 1) {
-      return [
-        this.backgroundColorType(types[0]),
-        this.backgroundColorType(types[1]),
-      ];
-    }
-    return [this.backgroundColorType(types[0])];
+    const arr = [];
+
+    types.forEach((element) => {
+      arr.push(this.backgroundColorType(element));
+    });
+    return arr;
   }
 
   firstBackgroundColorType(type) {
@@ -92,6 +98,18 @@ export default class TemtemCard extends Component {
         return '#F8FAFC';
     }
   }
+  getWeaknesses() {
+    const asArray = Object.entries(this.props.weaknesses);
+    const test = this.props.data.types.map((entry) => {
+      return asArray.filter((type) => {
+        return type[1][entry] === 2;
+      });
+    });
+    const lala = [].concat(...test).map((entry) => {
+      return entry[0];
+    });
+    return [...new Set(lala)];
+  }
   render() {
     return (
       <React.StrictMode>
@@ -125,15 +143,25 @@ export default class TemtemCard extends Component {
               }
             />
 
-            <div className="bg-white opacity-60">
-              <div className="bg-black opacity-60 w-full text-center text-xl font-mono py-2 text-white">
+            <div className="bg-white opacity-80">
+              <div className="bg-black opacity-60 w-full text-center text-xl font-mono py-1 mb-2 text-white">
                 {this.props.data.name}
               </div>
               <div>
-                <div className="m-2">
+                <div>
                   <Types
+                    text="Types"
+                    textColor="text-white"
+                    containerColor=""
                     data={this.props.data.types}
                     bg={this.state.typesColor}
+                  />
+                  <Types
+                    text="Types"
+                    textColor="text-white"
+                    containerColor=""
+                    data={this.weaknesses}
+                    bg={this.state.weaknessesColors}
                   />
                 </div>
               </div>

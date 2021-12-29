@@ -6,12 +6,13 @@ import SearchBar from './SeacrhBar';
 export default class App extends Component {
   constructor(props) {
     super(props);
-    this.state = { temtemList: [], searchTerm: '' };
+    this.state = { temtemList: [], weaknesses: {}, searchTerm: '' };
     this.handleChange = this.handleChange.bind(this);
   }
 
   componentDidMount() {
     this.getData();
+    this.getWeaknesses();
   }
 
   handleChange(event) {
@@ -24,9 +25,13 @@ export default class App extends Component {
         'https://temtem-api.mael.tech/api/temtems?fields=number,name,types,evolution,locations,icon,lumaIcon?expand=types'
       )
       .then((res) => {
-        // console.log(res.data);
         this.setState({ temtemList: res.data });
       });
+  }
+  getWeaknesses() {
+    axios.get('https://temtem-api.mael.tech/api/weaknesses').then((res) => {
+      this.setState({ weaknesses: res.data });
+    });
   }
 
   render() {
@@ -46,7 +51,10 @@ export default class App extends Component {
             handleChange={this.handleChange}
           />
           {this.state.temtemList.length > 0 ? (
-            <TemtemList data={filteredTemTem} />
+            <TemtemList
+              data={filteredTemTem}
+              weaknesses={this.state.weaknesses}
+            />
           ) : (
             <div>Loading...</div>
           )}
