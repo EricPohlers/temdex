@@ -1,0 +1,13 @@
+{
+  "files": {
+    "main.css": "/EricPohlers/temdex.git/static/css/main.1fbb30a1.css",
+    "main.js": "/EricPohlers/temdex.git/static/js/main.cd91b8d0.js",
+    "index.html": "/EricPohlers/temdex.git/index.html",
+    "main.1fbb30a1.css.map": "/EricPohlers/temdex.git/static/css/main.1fbb30a1.css.map",
+    "main.cd91b8d0.js.map": "/EricPohlers/temdex.git/static/js/main.cd91b8d0.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.1fbb30a1.css",
+    "static/js/main.cd91b8d0.js"
+  ]
+}
