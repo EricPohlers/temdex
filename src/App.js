@@ -1,20 +1,22 @@
 import React, { Component } from 'react';
 import TemtemList from './TemtemList';
 import axios from 'axios';
+import SearchBar from './SeacrhBar';
 
 export default class App extends Component {
   constructor(props) {
     super(props);
-    this.state = { temtemList: [] };
+    this.state = { temtemList: [], searchTerm: '' };
+    this.handleChange = this.handleChange.bind(this);
   }
 
   componentDidMount() {
     this.getData();
   }
 
-  componentDidUpdate(prevState) {
-    if (prevState.temtemList !== this.state.temtemList) {
-    }
+  handleChange(event) {
+    console.log(event);
+    this.setState({ searchTerm: event.target.value });
   }
 
   getData() {
@@ -29,10 +31,19 @@ export default class App extends Component {
   }
 
   render() {
+    const filteredTemTem = this.state.temtemList.filter((temtem) => {
+      return temtem.name
+        .toLowerCase()
+        .includes(this.state.searchTerm.toLocaleLowerCase());
+    });
     return (
       <div>
         <React.StrictMode>
-          <TemtemList data={this.state.temtemList} />
+          <SearchBar
+            value={this.state.searchTerm}
+            handleChange={this.handleChange}
+          />
+          <TemtemList data={filteredTemTem} />
         </React.StrictMode>
       </div>
     );

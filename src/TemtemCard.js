@@ -95,7 +95,7 @@ export default class TemtemCard extends Component {
   render() {
     return (
       <React.StrictMode>
-        <div>
+        <div className="">
           <div
             style={
               this.state.bgColor.length > 1
@@ -107,11 +107,14 @@ export default class TemtemCard extends Component {
             className={`m-2 border border-gray-200 rounded-lg`}
             key={this.props.data.number}
           >
+            <div className="text-slate-500 text-xl font-semibold mx-4 my-2">
+              {this.props.data.number}
+            </div>
             <img
               className={
                 this.props.data.icon !== ''
-                  ? 'rounded-t-lg w-full'
-                  : 'rounded-t-lg blur-lg w-full'
+                  ? 'rounded-t-lg w-full -mt-11'
+                  : 'rounded-t-lg blur-lg -mt-11  w-full'
               }
               alt="temtem"
               variant="top"
@@ -121,8 +124,11 @@ export default class TemtemCard extends Component {
                   : 'https://temtem-api.mael.tech//images/portraits/temtem/large/Tuwai.png'
               }
             />
+
             <div className="bg-white opacity-60">
-              <div className="w-full text-center">{this.props.data.name}</div>
+              <div className="bg-black opacity-60 w-full text-center text-xl font-mono py-2 text-white">
+                {this.props.data.name}
+              </div>
               <div>
                 <div className="m-2">
                   <Types
