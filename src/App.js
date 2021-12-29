@@ -15,7 +15,6 @@ export default class App extends Component {
   }
 
   handleChange(event) {
-    console.log(event);
     this.setState({ searchTerm: event.target.value });
   }
 
