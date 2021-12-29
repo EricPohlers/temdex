@@ -157,9 +157,9 @@ export default class TemtemCard extends Component {
                     bg={this.state.typesColor}
                   />
                   <Types
-                    text="Types"
+                    text="Weaknesses"
                     textColor="text-white"
-                    containerColor=""
+                    containerColor="bg-red-300"
                     data={this.weaknesses}
                     bg={this.state.weaknessesColors}
                   />
