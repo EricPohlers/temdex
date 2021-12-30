@@ -132,8 +132,8 @@ export default class TemtemCard extends Component {
               <img
                 className={
                   this.props.data.icon !== ''
-                    ? 'rounded-t-lg w-full snap-center'
-                    : 'rounded-t-lg blur-lg w-full snap-center'
+                    ? 'rounded-t-lg w-full snap-center shrink-0 grow-1'
+                    : 'rounded-t-lg blur-lg w-full snap-center shrink-0 grow-1'
                 }
                 alt="temtem"
                 variant="top"
@@ -145,7 +145,9 @@ export default class TemtemCard extends Component {
               />
               {this.props.data.lumaIcon && (
                 <img
-                  className={'rounded-t-lg ml-4 w-full snap-center'}
+                  className={
+                    'rounded-t-lg ml-4 w-full snap-center shrink-0 grow-1'
+                  }
                   alt="temtem"
                   variant="top"
                   src={`https://temtem-api.mael.tech/${this.props.data.lumaIcon}`}
