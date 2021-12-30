@@ -22,7 +22,7 @@ export default class App extends Component {
   getData() {
     axios
       .get(
-        'https://temtem-api.mael.tech/api/temtems?fields=number,name,types,evolution,locations,icon,lumaIcon?expand=types'
+        'https://temtem-api.mael.tech/api/temtems?fields=number,name,types,evolution,locations,icon,lumaIcon,?expand=types'
       )
       .then((res) => {
         this.setState({ temtemList: res.data });

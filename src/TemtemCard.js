@@ -122,27 +122,39 @@ export default class TemtemCard extends Component {
                   }
                 : { backgroundColor: this.state.bgColor[0] }
             }
-            className={`m-2 border border-gray-200 rounded-lg`}
+            className={` m-2 border border-gray-200 rounded-lg`}
             key={this.props.data.number}
           >
-            <div className="text-slate-500 text-xl font-semibold mx-4 my-2">
+            <div className="absolute text-slate-500 text-xl font-semibold px-4 py-2 ">
               {this.props.data.number}
             </div>
-            <img
-              className={
-                this.props.data.icon !== ''
-                  ? 'rounded-t-lg w-full -mt-11'
-                  : 'rounded-t-lg blur-lg -mt-11  w-full'
-              }
-              alt="temtem"
-              variant="top"
-              src={
-                this.props.data.icon !== ''
-                  ? `https://temtem-api.mael.tech/${this.props.data.icon}`
-                  : 'https://temtem-api.mael.tech//images/portraits/temtem/large/Tuwai.png'
-              }
-            />
-
+            <div className="flex flex-nowrap overflow-x-auto snap-x snap-mandatory no-scrollbar w-full">
+              <img
+                className={
+                  this.props.data.icon !== ''
+                    ? 'rounded-t-lg w-full snap-center'
+                    : 'rounded-t-lg blur-lg w-full snap-center'
+                }
+                alt="temtem"
+                variant="top"
+                src={
+                  this.props.data.icon !== ''
+                    ? `https://temtem-api.mael.tech/${this.props.data.icon}`
+                    : 'https://temtem-api.mael.tech//images/portraits/temtem/large/Tuwai.png'
+                }
+              />
+              {this.props.data.lumaIcon && (
+                <img
+                  className={'rounded-t-lg ml-4 w-full snap-center'}
+                  alt="temtem"
+                  variant="top"
+                  src={`https://temtem-api.mael.tech/${this.props.data.lumaIcon}`}
+                  onError={(e) => {
+                    e.target.style = 'display: none';
+                  }}
+                />
+              )}
+            </div>
             <div className="bg-white opacity-80">
               <div className="bg-black opacity-60 w-full text-center text-xl font-mono py-1 mb-2 text-white">
                 {this.props.data.name}
@@ -156,13 +168,13 @@ export default class TemtemCard extends Component {
                     data={this.props.data.types}
                     bg={this.state.typesColor}
                   />
-                  <Types
+                  {/* <Types
                     text="Weaknesses"
                     textColor="text-white"
                     containerColor="bg-red-300"
                     data={this.weaknesses}
                     bg={this.state.weaknessesColors}
-                  />
+                  /> */}
                 </div>
               </div>
             </div>
