@@ -15,7 +15,7 @@ export default class TemTemCardHeader extends Component {
               <button
                 onClick={() => this.props.data.iconCangeClick('icon')}
                 className={`flex-initial mx-1 px-2 rounded-lg ${
-                  this.props.data.icon === 'icon' ? 'bg-stone-400' : 'bg-white'
+                  this.props.data.icon === 'icon' ? 'bg-white' : 'bg-stone-400'
                 }`}
               >
                 Org.
@@ -24,8 +24,8 @@ export default class TemTemCardHeader extends Component {
                 onClick={() => this.props.data.iconCangeClick('lumaIcon')}
                 className={`flex-initial mx-1 px-2 rounded-lg ${
                   this.props.data.icon === 'lumaIcon'
-                    ? 'bg-stone-400'
-                    : 'bg-white'
+                    ? 'bg-white'
+                    : 'bg-stone-400'
                 }`}
               >
                 Luma
