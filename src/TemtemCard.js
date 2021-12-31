@@ -1,10 +1,16 @@
 import React, { Component } from 'react';
 import Types from './Types';
+import TemTemCardHeader from './TemTemCardHeader';
 
 export default class TemtemCard extends Component {
   constructor(props) {
     super(props);
-    this.state = { bgColor: [], typesColor: [], weaknessesColors: [] };
+    this.state = {
+      bgColor: [],
+      typesColor: [],
+      weaknessesColors: [],
+      luma: true,
+    };
     this.weaknesses = [];
   }
 
@@ -18,6 +24,16 @@ export default class TemtemCard extends Component {
       typesColor: typesColor,
       weaknessesColors: weaknessesColor,
     });
+    this.checkIfImageExists(
+      `https://temtem-api.mael.tech/${this.props.data.lumaIcon}`,
+      (exists) => {
+        if (exists) {
+          this.setLumaState(true);
+        } else {
+          this.setLumaState(false);
+        }
+      }
+    );
   }
 
   getBackgroundColors(types) {
@@ -37,6 +53,28 @@ export default class TemtemCard extends Component {
     });
     return arr;
   }
+
+  checkIfImageExists(url, callback) {
+    const img = new Image();
+
+    img.src = url;
+
+    if (img.complete) {
+      callback(true);
+    } else {
+      img.onload = () => {
+        callback(true);
+      };
+
+      img.onerror = () => {
+        callback(false);
+      };
+    }
+  }
+
+  setLumaState = (bool) => {
+    this.setState({ luma: bool });
+  };
 
   firstBackgroundColorType(type) {
     switch (type) {
@@ -110,6 +148,7 @@ export default class TemtemCard extends Component {
     });
     return [...new Set(lala)];
   }
+
   render() {
     return (
       <React.StrictMode>
@@ -125,15 +164,19 @@ export default class TemtemCard extends Component {
             className={` m-2 border border-gray-200 rounded-lg`}
             key={this.props.data.number}
           >
-            <div className="absolute text-slate-500 text-xl font-semibold px-4 py-2 ">
-              {this.props.data.number}
-            </div>
-            <div className="flex flex-nowrap overflow-x-auto snap-x snap-mandatory no-scrollbar w-full">
+            <TemTemCardHeader
+              data={{
+                number: this.props.data.number,
+                name: this.props.data.name,
+                luma: this.state.luma,
+              }}
+            />
+            <div className="flex flex-nowrap overflow-x-auto snap-x snap-mandatory no-scrollbar w-full -my-11">
               <img
                 className={
                   this.props.data.icon !== ''
-                    ? 'rounded-t-lg w-full snap-center shrink-0 grow-1'
-                    : 'rounded-t-lg blur-lg w-full snap-center shrink-0 grow-1'
+                    ? 'rounded-t-lg w-full snap-start shrink-0 grow-1'
+                    : 'rounded-t-lg blur-lg w-full snap-start shrink-0 grow-1'
                 }
                 alt="temtem"
                 variant="top"
@@ -146,7 +189,7 @@ export default class TemtemCard extends Component {
               {this.props.data.lumaIcon && (
                 <img
                   className={
-                    'rounded-t-lg ml-4 w-full snap-center shrink-0 grow-1'
+                    'rounded-t-lg ml-4 w-full snap-start shrink-0 grow-1'
                   }
                   alt="temtem"
                   variant="top"
