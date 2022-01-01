@@ -183,6 +183,7 @@ export default class TemtemCard extends Component {
             <TemtemCardIcon
               data={{
                 icon: this.state.icon,
+                luma: this.state.luma,
                 iconUrl: {
                   icon: this.props.data.icon,
                   lumaIcon: this.props.data.lumaIcon,

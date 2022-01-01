@@ -4,8 +4,8 @@ import { motion } from 'framer-motion';
 
 export default function TemtemCardIcon(props) {
   const handlers = useSwipeable({
-    onSwipedRight: () => props.swipe('icon'),
-    onSwipedLeft: () => props.swipe('lumaIcon'),
+    onSwipedRight: () => (props.data.luma ? props.swipe('icon') : null),
+    onSwipedLeft: () => (props.data.luma ? props.swipe('lumaIcon') : null),
   });
 
   return (
