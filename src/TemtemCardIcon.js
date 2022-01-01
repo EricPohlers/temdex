@@ -8,11 +8,6 @@ export default function TemtemCardIcon(props) {
     onSwipedLeft: () => props.swipe('lumaIcon'),
   });
 
-  const variants = {
-    icon: { opacity: 1, x: 0 },
-    luma: { opacity: 0, x: '-100%' },
-  };
-
   return (
     <motion.div
       animate={
