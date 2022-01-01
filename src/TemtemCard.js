@@ -158,7 +158,7 @@ export default class TemtemCard extends Component {
   render() {
     return (
       <React.StrictMode>
-        <div>
+        <div className="shadow-lg rounded-lg">
           <div
             style={
               this.state.bgColor.length > 1
@@ -167,7 +167,7 @@ export default class TemtemCard extends Component {
                   }
                 : { backgroundColor: this.state.bgColor[0] }
             }
-            className={`border border-gray-200 rounded-lg`}
+            className={`shadow-lg border border-gray-200 rounded-lg`}
             key={this.props.data.number}
           >
             <TemtemCardHeader
@@ -190,28 +190,26 @@ export default class TemtemCard extends Component {
               }}
               swipe={this.iconChange}
             />
-            <div className="bg-white opacity-80">
+            <div className="bg-white opacity-80 rounded-b-lg">
               <div className="bg-black opacity-60 w-full text-center text-xl font-mono py-1 mb-2 text-white">
                 {this.props.data.name}
               </div>
-              <div>
-                <div>
-                  <Types
-                    text="Types"
-                    textColor="text-white"
-                    containerColor=""
-                    data={this.props.data.types}
-                    bg={this.state.typesColor}
-                    allTypes={this.props.types}
-                  />
-                  {/* <Types
+              <div className="rounded-b-lg">
+                <Types
+                  text="Types"
+                  textColor="text-white"
+                  containerColor=""
+                  data={this.props.data.types}
+                  bg={this.state.typesColor}
+                  allTypes={this.props.types}
+                />
+                {/* <Types
                     text="Weaknesses"
                     textColor="text-white"
                     containerColor="bg-red-300"
                     data={this.weaknesses}
                     bg={this.state.weaknessesColors}
                   /> */}
-                </div>
               </div>
             </div>
           </div>
