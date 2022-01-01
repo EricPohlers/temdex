@@ -167,7 +167,7 @@ export default class TemtemCard extends Component {
                   }
                 : { backgroundColor: this.state.bgColor[0] }
             }
-            className={`shadow-lg border border-gray-200 rounded-lg`}
+            className={`shadow-lg rounded-lg`}
             key={this.props.data.number}
           >
             <TemtemCardHeader
