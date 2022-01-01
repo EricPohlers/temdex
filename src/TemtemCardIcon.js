@@ -17,7 +17,7 @@ export default function TemtemCardIcon(props) {
             }
           : { opacity: [0, 1.1] }
       }
-      transition={{ duration: 1 }}
+      transition={{ duration: 0.8 }}
       className="w-full -my-11"
       {...handlers}
     >

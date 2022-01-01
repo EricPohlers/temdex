@@ -1,7 +1,12 @@
 import React, { Component } from 'react';
+import Type from './Type';
 
 export default class Types extends Component {
+  typeData = this.props.allTypes.filter((entry) => {
+    return this.props.data.includes(entry.name);
+  });
   render() {
+    // console.log(this.typeData);
     return (
       <div
         className={`flex py-4 px-3 font-mono flex-wrap ${
@@ -12,13 +17,17 @@ export default class Types extends Component {
         <span className="flex flex-wrap">
           {this.props.data.map((type, index) => {
             return (
-              <span
+              <Type
                 key={index}
-                style={{ backgroundColor: this.props.bg[index] }}
-                className={`flex-wrap border-2 border-stone-300 rounded-full mx-1 py-1 px-2 ${this.props.textColor} `}
-              >
-                {type}
-              </span>
+                bg={this.props.bg[index]}
+                textColor={this.props.textColor}
+                type={type}
+                index={index}
+                allTypes={this.props.allTypes}
+                currentType={this.typeData.filter(
+                  (element) => element.name === type
+                )}
+              />
             );
           })}
         </span>

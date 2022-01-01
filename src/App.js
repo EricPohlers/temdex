@@ -3,17 +3,19 @@ import TemtemList from './TemtemList';
 import axios from 'axios';
 import SearchBar from './SeacrhBar';
 import { motion } from 'framer-motion';
+import TypesFilter from './TypesFilter';
 
 export default class App extends Component {
   constructor(props) {
     super(props);
-    this.state = { temtemList: [], weaknesses: {}, searchTerm: '' };
+    this.state = { temtemList: [], weaknesses: {}, types: {}, searchTerm: '' };
     this.handleChange = this.handleChange.bind(this);
   }
 
   componentDidMount() {
     this.getData();
     this.getWeaknesses();
+    this.getTypes();
   }
 
   handleChange(event) {
@@ -34,6 +36,11 @@ export default class App extends Component {
       this.setState({ weaknesses: res.data });
     });
   }
+  getTypes() {
+    axios.get('https://temtem-api.mael.tech/api/types').then((res) => {
+      this.setState({ types: res.data });
+    });
+  }
 
   render() {
     const filteredTemTem = this.state.temtemList.filter((temtem) => {
@@ -51,16 +58,18 @@ export default class App extends Component {
             value={this.state.searchTerm}
             handleChange={this.handleChange}
           />
+          <TypesFilter />
           {this.state.temtemList.length > 0 ? (
             <TemtemList
               data={filteredTemTem}
               weaknesses={this.state.weaknesses}
+              types={this.state.types}
             />
           ) : (
-            <motion.div className="px-4 py-2 bg-slate-300">
-              <div className="flex justify-center">
+            <motion.div className="py-10 flex justify-center px-4 py-2 ">
+              <div className="border-2 border-neutral-500 text-lg px-5 py-3 flex bg-black bg-neutral-400 rounded-full ">
                 <svg
-                  className="animate-spin -ml-1 mr-3 h-5 w-5 text-white"
+                  className="animate-spin mt-1 mr-3 w-6 text-white"
                   xmlns="http://www.w3.org/2000/svg"
                   fill="none"
                   viewBox="0 0 24 24"

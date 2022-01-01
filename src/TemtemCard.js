@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import Types from './Types';
 import TemtemCardHeader from './TemtemCardHeader';
 import TemtemCardIcon from './TemtemCardIcon';
-import { motion } from 'framer-motion';
 
 export default class TemtemCard extends Component {
   constructor(props) {
@@ -159,7 +158,7 @@ export default class TemtemCard extends Component {
   render() {
     return (
       <React.StrictMode>
-        <motion.div>
+        <div>
           <div
             style={
               this.state.bgColor.length > 1
@@ -168,7 +167,7 @@ export default class TemtemCard extends Component {
                   }
                 : { backgroundColor: this.state.bgColor[0] }
             }
-            className={` m-2 border border-gray-200 rounded-lg`}
+            className={`border border-gray-200 rounded-lg`}
             key={this.props.data.number}
           >
             <TemtemCardHeader
@@ -203,6 +202,7 @@ export default class TemtemCard extends Component {
                     containerColor=""
                     data={this.props.data.types}
                     bg={this.state.typesColor}
+                    allTypes={this.props.types}
                   />
                   {/* <Types
                     text="Weaknesses"
@@ -215,7 +215,7 @@ export default class TemtemCard extends Component {
               </div>
             </div>
           </div>
-        </motion.div>
+        </div>
       </React.StrictMode>
     );
   }
