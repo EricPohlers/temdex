@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
 
-export default class TemTemCardHeader extends Component {
+export default class TemtemCardHeader extends Component {
   render() {
-    console.log(this.props.data.icon);
     return (
       <div className="flex px-4 py-2">
         <div className="z-50 text-slate-500 text-xl font-semibold">

@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import Types from './Types';
-import TemTemCardHeader from './TemTemCardHeader';
+import TemtemCardHeader from './TemtemCardHeader';
+import TemtemCardIcon from './TemtemCardIcon';
+import { motion } from 'framer-motion';
 
 export default class TemtemCard extends Component {
   constructor(props) {
@@ -150,14 +152,14 @@ export default class TemtemCard extends Component {
     return [...new Set(lala)];
   }
 
-  iconCangeClick = (value) => {
+  iconChange = (value) => {
     this.setState({ icon: value });
   };
 
   render() {
     return (
       <React.StrictMode>
-        <div className="">
+        <motion.div>
           <div
             style={
               this.state.bgColor.length > 1
@@ -169,62 +171,25 @@ export default class TemtemCard extends Component {
             className={` m-2 border border-gray-200 rounded-lg`}
             key={this.props.data.number}
           >
-            <TemTemCardHeader
+            <TemtemCardHeader
               data={{
                 number: this.props.data.number,
                 name: this.props.data.name,
                 luma: this.state.luma,
                 icon: this.state.icon,
-                iconCangeClick: this.iconCangeClick,
+                iconCangeClick: this.iconChange,
               }}
             />
-            <div className="w-full -my-11">
-              <img
-                className={
-                  this.state.icon === 'icon' && this.props.data.icon === ''
-                    ? 'rounded-t-lg blur-lg w-full snap-start shrink-0 grow-1'
-                    : 'rounded-t-lg w-full snap-start shrink-0 grow-1'
-                }
-                alt="temtem"
-                variant="top"
-                src={
-                  this.props.data[this.state.icon] !== ''
-                    ? `https://temtem-api.mael.tech/${
-                        this.props.data[this.state.icon]
-                      }`
-                    : 'https://temtem-api.mael.tech//images/portraits/temtem/large/Tuwai.png'
-                }
-              />
-            </div>
-            {/* <div className="flex flex-nowrap overflow-x-auto snap-x snap-mandatory no-scrollbar w-full -my-11">
-              <img
-                className={
-                  this.props.data.icon !== ''
-                    ? 'rounded-t-lg w-full snap-start shrink-0 grow-1'
-                    : 'rounded-t-lg blur-lg w-full snap-start shrink-0 grow-1'
-                }
-                alt="temtem"
-                variant="top"
-                src={
-                  this.props.data.icon !== ''
-                    ? `https://temtem-api.mael.tech/${this.props.data.icon}`
-                    : 'https://temtem-api.mael.tech//images/portraits/temtem/large/Tuwai.png'
-                }
-              />
-              {this.props.data.lumaIcon && (
-                <img
-                  className={
-                    'rounded-t-lg ml-4 w-full snap-start shrink-0 grow-1'
-                  }
-                  alt="temtem"
-                  variant="top"
-                  src={`https://temtem-api.mael.tech/${this.props.data.lumaIcon}`}
-                  onError={(e) => {
-                    e.target.style = 'display: none';
-                  }}
-                />
-              )}
-            </div> */}
+            <TemtemCardIcon
+              data={{
+                icon: this.state.icon,
+                iconUrl: {
+                  icon: this.props.data.icon,
+                  lumaIcon: this.props.data.lumaIcon,
+                },
+              }}
+              swipe={this.iconChange}
+            />
             <div className="bg-white opacity-80">
               <div className="bg-black opacity-60 w-full text-center text-xl font-mono py-1 mb-2 text-white">
                 {this.props.data.name}
@@ -249,7 +214,7 @@ export default class TemtemCard extends Component {
               </div>
             </div>
           </div>
-        </div>
+        </motion.div>
       </React.StrictMode>
     );
   }
