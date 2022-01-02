@@ -19,14 +19,14 @@ export default class Types extends Component {
             return (
               <Type
                 key={index}
-                bg={this.props.bg[index]}
                 textColor={this.props.textColor}
-                type={type}
                 index={index}
                 allTypes={this.props.allTypes}
                 currentType={this.typeData.filter(
                   (element) => element.name === type
                 )}
+                selected="true"
+                onClick={() => ''}
               />
             );
           })}

@@ -8,8 +8,6 @@ export default class TemtemCard extends Component {
     super(props);
     this.state = {
       bgColor: [],
-      typesColor: [],
-      weaknessesColors: [],
       icon: 'icon',
       luma: false,
     };
@@ -18,13 +16,8 @@ export default class TemtemCard extends Component {
 
   componentDidMount() {
     const color = this.getBackgroundColors(this.props.data.types);
-    const typesColor = this.getTypesColors(this.props.data.types);
-    this.weaknesses = this.getWeaknesses();
-    const weaknessesColor = this.getTypesColors(this.weaknesses);
     this.setState({
       bgColor: color,
-      typesColor: typesColor,
-      weaknessesColors: weaknessesColor,
     });
     this.checkIfImageExists(
       `https://temtem-api.mael.tech/${this.props.data.lumaIcon}`,
@@ -46,14 +39,6 @@ export default class TemtemCard extends Component {
       ];
     }
     return [this.firstBackgroundColorType(types[0])];
-  }
-  getTypesColors(types) {
-    const arr = [];
-
-    types.forEach((element) => {
-      arr.push(this.backgroundColorType(element));
-    });
-    return arr;
   }
 
   checkIfImageExists(url, callback) {
@@ -108,36 +93,7 @@ export default class TemtemCard extends Component {
         return '#FAFAFA';
     }
   }
-  backgroundColorType(type) {
-    switch (type) {
-      case 'Digital':
-        return '#475569';
-      case 'Melee':
-        return '#EA580C';
-      case 'Toxic':
-        return '#292524';
-      case 'Fire':
-        return '#DC2626';
-      case 'Nature':
-        return '#65A30D';
-      case 'Water':
-        return '#2563EB';
-      case 'Electric':
-        return '#FACC15';
-      case 'Mental':
-        return '#C026D3';
-      case 'Earth':
-        return '#854D0E';
-      case 'Wind':
-        return '#2DD4BF';
-      case 'Neutral':
-        return '#A1A1AA';
-      case 'Crystal':
-        return '#EC4899';
-      default:
-        return '#F8FAFC';
-    }
-  }
+
   getWeaknesses() {
     const asArray = Object.entries(this.props.weaknesses);
     const test = this.props.data.types.map((entry) => {
@@ -200,16 +156,8 @@ export default class TemtemCard extends Component {
                   textColor="text-white"
                   containerColor=""
                   data={this.props.data.types}
-                  bg={this.state.typesColor}
                   allTypes={this.props.types}
                 />
-                {/* <Types
-                    text="Weaknesses"
-                    textColor="text-white"
-                    containerColor="bg-red-300"
-                    data={this.weaknesses}
-                    bg={this.state.weaknessesColors}
-                  /> */}
               </div>
             </div>
           </div>

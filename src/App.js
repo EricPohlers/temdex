@@ -1,14 +1,20 @@
 import React, { Component } from 'react';
-import TemtemList from './TemtemList';
 import axios from 'axios';
-import SearchBar from './SeacrhBar';
 import { motion } from 'framer-motion';
+import TemtemList from './TemtemList';
+import SearchBar from './SeacrhBar';
 import TypesFilter from './TypesFilter';
 
 export default class App extends Component {
   constructor(props) {
     super(props);
-    this.state = { temtemList: [], weaknesses: {}, types: {}, searchTerm: '' };
+    this.state = {
+      temtemList: [],
+      weaknesses: {},
+      types: {},
+      searchTerm: '',
+      selectedTypes: [],
+    };
     this.handleChange = this.handleChange.bind(this);
   }
 
@@ -16,6 +22,17 @@ export default class App extends Component {
     this.getData();
     this.getWeaknesses();
     this.getTypes();
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+    if (prevState.selectedTypes !== this.state.selectedTypes) {
+      if (this.state.selectedTypes.length < 1) {
+        console.log('test');
+        this.setState({
+          selectedTypes: this.state.types.map((item) => item.name),
+        });
+      }
+    }
   }
 
   handleChange(event) {
@@ -36,18 +53,44 @@ export default class App extends Component {
       this.setState({ weaknesses: res.data });
     });
   }
+
   getTypes() {
     axios.get('https://temtem-api.mael.tech/api/types').then((res) => {
-      this.setState({ types: res.data });
+      this.setState({
+        types: res.data,
+        selectedTypes: res.data.map((item) => item.name),
+      });
     });
   }
 
+  handleTypeFilterClick = (type) => {
+    if (this.state.selectedTypes.length === this.state.types.length) {
+      this.setState({ selectedTypes: [type] });
+    } else {
+      if (this.state.selectedTypes.includes(type)) {
+        this.setState(() => {
+          return {
+            selectedTypes: this.state.selectedTypes.filter(
+              (element) => element !== type
+            ),
+          };
+        });
+      } else {
+        this.setState({ selectedTypes: [...this.state.selectedTypes, type] });
+      }
+    }
+  };
+
   render() {
     const filteredTemTem = this.state.temtemList.filter((temtem) => {
-      return temtem.name
-        .toLowerCase()
-        .includes(this.state.searchTerm.toLocaleLowerCase());
+      return (
+        temtem.name
+          .toLowerCase()
+          .includes(this.state.searchTerm.toLocaleLowerCase()) &&
+        this.state.selectedTypes.some((type) => temtem.types.includes(type))
+      );
     });
+    console.log(this.state.selectedTypes);
     return (
       <div>
         <React.StrictMode>
@@ -58,7 +101,13 @@ export default class App extends Component {
             value={this.state.searchTerm}
             handleChange={this.handleChange}
           />
-          <TypesFilter />
+          {this.state.types.length > 0 && (
+            <TypesFilter
+              allTypes={this.state.types}
+              onClick={this.handleTypeFilterClick}
+              selectedTypes={this.state.selectedTypes}
+            />
+          )}
           {this.state.temtemList.length > 0 ? (
             <TemtemList
               data={filteredTemTem}

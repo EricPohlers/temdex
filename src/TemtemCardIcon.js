@@ -17,11 +17,11 @@ export default function TemtemCardIcon(props) {
             }
           : { opacity: [0, 1.1] }
       }
-      transition={{ duration: 0.8 }}
+      transition={{ duration: 0.6 }}
       className="w-full -my-11"
       {...handlers}
     >
-      <motion.img
+      <img
         className={
           props.data.icon === 'icon' && props.data.iconUrl.icon === ''
             ? 'rounded-t-lg blur-lg w-full snap-start shrink-0 grow-1'
