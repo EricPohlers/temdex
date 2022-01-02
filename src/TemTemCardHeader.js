@@ -4,11 +4,11 @@ export default class TemtemCardHeader extends Component {
   render() {
     return (
       <div className="flex px-4 py-2">
-        <div className="z-50 text-slate-500 text-xl font-semibold">
+        <div className="z-200 text-slate-500 text-xl font-semibold">
           {this.props.data.number}
         </div>
 
-        <div className="z-50 flex ml-auto">
+        <div className="z-20 flex ml-auto">
           {this.props.data.luma && (
             <>
               <button

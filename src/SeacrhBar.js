@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 export default class SearchBar extends Component {
   render() {
     return (
-      <div className="flex text-lg justify-center py-5">
+      <div className="flex text-lg justify-center py-5 pb-2">
         <React.StrictMode>
           <input
             className="mx-2 justify-self-start rounded-full bg-white border-2 min-w-[90%]

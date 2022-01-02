@@ -24,17 +24,6 @@ export default class App extends Component {
     this.getTypes();
   }
 
-  componentDidUpdate(prevProps, prevState) {
-    if (prevState.selectedTypes !== this.state.selectedTypes) {
-      if (this.state.selectedTypes.length < 1) {
-        console.log('test');
-        this.setState({
-          selectedTypes: this.state.types.map((item) => item.name),
-        });
-      }
-    }
-  }
-
   handleChange(event) {
     this.setState({ searchTerm: event.target.value });
   }
@@ -68,13 +57,19 @@ export default class App extends Component {
       this.setState({ selectedTypes: [type] });
     } else {
       if (this.state.selectedTypes.includes(type)) {
-        this.setState(() => {
-          return {
-            selectedTypes: this.state.selectedTypes.filter(
-              (element) => element !== type
-            ),
-          };
-        });
+        if (this.state.selectedTypes.length === 1) {
+          this.setState({
+            selectedTypes: this.state.types.map((item) => item.name),
+          });
+        } else {
+          this.setState(() => {
+            return {
+              selectedTypes: this.state.selectedTypes.filter(
+                (element) => element !== type
+              ),
+            };
+          });
+        }
       } else {
         this.setState({ selectedTypes: [...this.state.selectedTypes, type] });
       }
@@ -90,24 +85,25 @@ export default class App extends Component {
         this.state.selectedTypes.some((type) => temtem.types.includes(type))
       );
     });
-    console.log(this.state.selectedTypes);
     return (
       <div>
         <React.StrictMode>
           <div className="text-white w-full bg-amber-500 p-4 text-3xl">
             TemDex
           </div>
-          <SearchBar
-            value={this.state.searchTerm}
-            handleChange={this.handleChange}
-          />
-          {this.state.types.length > 0 && (
-            <TypesFilter
-              allTypes={this.state.types}
-              onClick={this.handleTypeFilterClick}
-              selectedTypes={this.state.selectedTypes}
+          <div className=" relative z-50 bg-white">
+            <SearchBar
+              value={this.state.searchTerm}
+              handleChange={this.handleChange}
             />
-          )}
+            {this.state.types.length > 0 && (
+              <TypesFilter
+                allTypes={this.state.types}
+                onClick={this.handleTypeFilterClick}
+                selectedTypes={this.state.selectedTypes}
+              />
+            )}
+          </div>
           {this.state.temtemList.length > 0 ? (
             <TemtemList
               data={filteredTemTem}

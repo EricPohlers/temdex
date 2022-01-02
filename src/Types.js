@@ -9,11 +9,11 @@ export default class Types extends Component {
     // console.log(this.typeData);
     return (
       <div
-        className={`flex py-4 px-3 font-mono flex-wrap ${
+        className={`flex py-4 px-3 items-center font-mono flex-wrap ${
           this.props.containerColor ? this.props.containerColor : ''
         }`}
       >
-        <span className="mr-auto mb-2">{`${this.props.text}:`}</span>
+        <span className="align-baseline mr-auto">{`${this.props.text}:`}</span>
         <span className="flex flex-wrap">
           {this.props.data.map((type, index) => {
             return (

@@ -143,13 +143,11 @@ export default class TemtemCard extends Component {
                   icon: this.props.data.icon,
                   lumaIcon: this.props.data.lumaIcon,
                 },
+                name: this.props.data.name,
               }}
               swipe={this.iconChange}
             />
             <div className="bg-white opacity-80 rounded-b-lg">
-              <div className="bg-black opacity-60 w-full text-center text-xl font-mono py-1 mb-2 text-white">
-                {this.props.data.name}
-              </div>
               <div className="rounded-b-lg">
                 <Types
                   text="Types"
