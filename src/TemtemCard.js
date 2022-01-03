@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import Types from './Types';
 import TemtemCardHeader from './TemtemCardHeader';
-import TemtemCardIcon from './TemtemCardIcon';
+import TemtemCardIconBody from './TemtemCardIconBody';
 
 export default class TemtemCard extends Component {
   constructor(props) {
@@ -135,7 +135,7 @@ export default class TemtemCard extends Component {
                 iconCangeClick: this.iconChange,
               }}
             />
-            <TemtemCardIcon
+            <TemtemCardIconBody
               data={{
                 icon: this.state.icon,
                 luma: this.state.luma,

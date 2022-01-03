@@ -17,11 +17,10 @@ export default function TemtemCardIcon(props) {
             }
           : { opacity: [0, 1.1] }
       }
-      transition={{ duration: 0.3 }}
-      className="w-full -my-11 min-h-10"
-      {...handlers}
+      transition={{ duration: 0.5 }}
     >
       <img
+        {...handlers}
         className={
           props.data.icon === 'icon' && props.data.iconUrl.icon === ''
             ? 'rounded-t-lg blur-lg w-full snap-start shrink-0 grow-1'
@@ -37,9 +36,6 @@ export default function TemtemCardIcon(props) {
             : 'https://temtem-api.mael.tech//images/portraits/temtem/large/Tuwai.png'
         }
       />
-      <div className="bg-neutral-800 opacity-80 w-full text-center text-xl font-mono py-1 -mt-11 mb-11 text-white">
-        {props.data.name}
-      </div>
     </motion.div>
   );
 }
